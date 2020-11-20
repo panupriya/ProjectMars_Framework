@@ -52,7 +52,7 @@ namespace MarsFramework.Global
             #region Initialise Reports
 
             extent = new ExtentReports(ReportPath, false, DisplayOrder.NewestFirst);
-            //extent.LoadConfig(MarsResource.ReportXMLPath);
+            extent.LoadConfig(MarsResource.ReportXMLPath);
             test = extent.StartTest("My First Test", "Sample description");
             #endregion
 

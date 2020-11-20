@@ -1,7 +1,9 @@
 ﻿using MarsFramework.Global;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
+using System;
 
 namespace MarsFramework
 {
@@ -28,10 +30,10 @@ namespace MarsFramework
         private IWebElement HourEdit { get; set; }
 
 
-
         //Click on Availability hour dropdown
         [FindsBy(How = How.Name, Using = "availabiltyHour")]
         private IWebElement AvailabilityHour { get; set; }
+
 
         //Click on salary Edit button
         [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[4]/div/span/i")]
@@ -180,167 +182,255 @@ namespace MarsFramework
 
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "Profile");
 
-            //Click on availability edit
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[2]/div/span/i", 10000);
-            AvailabilityTimeEdit.Click();
+            #region profile details
+            try
+            {
+                //Click on availability edit
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[2]/div/span/i", 10000);
+                AvailabilityTimeEdit.Click();
 
-            //Click on availability dropdown
-            AvailabilityTime.Click();
+                //Click on availability dropdown
+                AvailabilityTime.Click();
 
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "availabiltyType", 10000);
-            //select availability time
-            new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("availabiltyType"))).SelectByText("Full Time");
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "availabiltyType", 10000);
+                //select availability time
+                new SelectElement(AvailabilityTime).SelectByText(GlobalDefinitions.ExcelLib.ReadData(2, "AvailableTime"));
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Test failed to enter Availability Type", ex.Message);
+            }
 
-            //click on hour edit
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[3]/div/span/i", 10000);
-            HourEdit.Click();
+            try
+            {
+                //click on hour edit
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[3]/div/span/i", 10000);
+                HourEdit.Click();
 
-            //click on houredit dropdown
-            AvailabilityHour.Click();
+                //click on houredit dropdown
+                AvailabilityHour.Click();
 
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "availabiltyHour", 10000);
-            //select availability hour
-            new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("availabiltyHour"))).SelectByText("More than 30hours a week");
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "availabiltyHour", 10000);
+                //select availability hour
+                new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("availabiltyHour"))).SelectByText("More than 30hours a week");
 
-            //click on Target edit
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[4]/div/span/i", 10000);
-            SalaryEdit.Click();
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Test failed to enter Availability Hours", ex.Message);
+            }
 
-            //click on Target salary dropdown
-            SalarySelect.Click();
 
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "availabiltyTarget", 10000);
-            //select salary
-            new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("availabiltyTarget"))).SelectByText("More than $1000 per month");
+            try
+            {
+                //click on Target edit
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[4]/div/span/i", 10000);
+                SalaryEdit.Click();
+
+                //click on Target salary dropdown
+                SalarySelect.Click();
+
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "availabiltyTarget", 10000);
+                //select salary
+                new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("availabiltyTarget"))).SelectByText("More than $1000 per month");
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Test failed to enter Earn Target", ex.Message);
+            }
 
             //Click on location
             // Location.Click();
-
-            //Click on language add new
-            LangBtn.Click();
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//div[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/thead/tr/th[3]/div", 10000);
-            AddNewLangBtn.Click();
-
-            //Add new language
-            AddLangText.Click();
-            ChooseLang.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Language"));
-
-            //Select language level
-            ChooseLevel.Click();
-            new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("level"))).SelectByText("Conversational");
-
-            //Add Language
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//input[@value='Add']", 10000);
-            AddLang.Click();
-
-            //Click on skill
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//div[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[1]/a[2]", 10000);
-            SkillBtn.Click();
-
-            //Click on add new skill
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//div[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/thead/tr/th[3]/div", 10000);
-            AddNewSkillBtn.Click();
-
-            //Add new skill
-
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "name", 10000);
-            AddSkillBox.Click();
-            AddSkill.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Skill"));
-
-            //Add skill level
-            AddSkillLevel.Click();
-            new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("level"))).SelectByText("Beginner");
-
-            //Click on add skill
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//input[@value='Add']", 10000);
-            AddSkillBtn.Click();
-
-            //Click on Education button
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//div[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[1]/a[3]", 10000);
-            EducationBtn.Click();
-
-            //Click on add new education
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//div[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/thead/tr/th[6]/div", 10000);
-            AddNewEducationBtn.Click();
-
-            //Choose country
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "country", 10000);
-            SelectCountry.Click();
-            new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("country"))).SelectByText("India");
-
-            //Choose title
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "title", 10000);
-            SelectTitle.Click();
-            new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("title"))).SelectByText("B.Tech");
-
-            //Choose year
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "yearOfGraduation", 10000);
-            YearOfGraduation.Click();
-            new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("yearOfGraduation"))).SelectByText("2011");
-
-            //Choose institute name
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "instituteName", 10000);
-            InstitName.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "University"));
-
-            //Choose degree
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "degree", 10000);
-            Degree.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Degree"));
-
-            //Click on add education
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//input[@value='Add']", 10000);
-            AddEdu.Click();
+            #endregion
 
 
-            //Click on Certifications
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//div[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[1]/a[4]", 10000);
-            CertificationBtn.Click();
+            #region AddLanguage
+            try
+            {
 
-            //Click on add new certifications
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//div[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/thead/tr/th[4]/div", 10000);
-            AddNewCertiBtn.Click();
+                //Click on language add new
+                LangBtn.Click();
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//div[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/thead/tr/th[3]/div", 10000);
+                AddNewLangBtn.Click();
 
-            //Input Certification
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "certificationName", 10000);
-            CertifiBtn.Click();
-            CertifiName.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Certificate"));
+                //Add new language
+                AddLangText.Click();
+                ChooseLang.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Language"));
 
-            //Input certification from
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "certificationFrom", 10000);
-            CertiFromBtn.Click();
-            CertifiFrom.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "CertifiedFrom"));
+                //Select language level
+                ChooseLevel.Click();
+                new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("level"))).SelectByText("Conversational");
 
-            //Select year from drop down
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "certificationYear", 10000);
-            CertiYear.Click();
-            new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("certificationYear"))).SelectByText("2020");
+                //Add Language
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//input[@value='Add']", 10000);
+                AddLang.Click();
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Test failed to enter/add Language", ex.Message);
+            }
+            #endregion
 
-            //Click on add certification
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//input[@value='Add']", 10000);
-            AddCerBtn.Click();
+            #region AddSkills
+            try
+            {
+                //Click on skill
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//div[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[1]/a[2]", 10000);
+                SkillBtn.Click();
+
+                //Click on add new skill
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//div[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/thead/tr/th[3]/div", 10000);
+                AddNewSkillBtn.Click();
+
+                //Add new skill
+
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "name", 10000);
+                AddSkillBox.Click();
+                AddSkill.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Skill"));
+
+                //Add skill level
+                AddSkillLevel.Click();
+                new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("level"))).SelectByText("Beginner");
+
+                //Click on add skill
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//input[@value='Add']", 10000);
+                AddSkillBtn.Click();
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Test failed to enter/add Skills", ex.Message);
+            }
+            #endregion
+
+            #region AddEducation
+            try
+            {
+                //Click on Education button
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//div[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[1]/a[3]", 10000);
+                EducationBtn.Click();
+
+                //Click on add new education
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//div[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/thead/tr/th[6]/div", 10000);
+                AddNewEducationBtn.Click();
+
+                 //Choose country
+                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "country", 10000);
+                 SelectCountry.Click();
+                 new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("country"))).SelectByText("India");
+
+                 //Choose title
+                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "title", 10000);
+                 SelectTitle.Click();
+                 new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("title"))).SelectByText("B.Tech");
+
+                 //Choose year
+                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "yearOfGraduation", 10000);
+                 YearOfGraduation.Click();
+                 new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("yearOfGraduation"))).SelectByText("2011");
+
+                 //Choose institute name
+                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "instituteName", 10000);
+                 InstitName.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "University"));
+
+                 //Choose degree
+                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "degree", 10000);
+                 Degree.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Degree"));
+
+                 //Click on add education
+                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//input[@value='Add']", 10000);
+                 AddEdu.Click();
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Test failed to enter/add Education", ex.Message);
+            }
+            #endregion
 
 
-            //Click on edit Description
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/div/div/div/h3/span/i", 10000);
-            DescriptionEdit.Click();
+            #region AddCertification
+            try
+            {
+                //Click on Certifications
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//div[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[1]/a[4]", 10000);
+                CertificationBtn.Click();
 
-            //Click on Description Text and enter the details
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/div/div/form/div/div/div[2]/div[1]/textarea", 10000);
-            DescriptionBox.Clear();
-            DescriptionBox.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Description"));
+                //Click on add new certifications
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//div[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/thead/tr/th[4]/div", 10000);
+                AddNewCertiBtn.Click();
 
-            //Click on Save button
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/div/div/form/div/div/div[2]/button", 10000);
+                //Input Certification
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "certificationName", 10000);
+                CertifiBtn.Click();
+                CertifiName.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Certificate"));
 
-            SaveDescription.Click();
+                //Input certification from
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "certificationFrom", 10000);
+                CertiFromBtn.Click();
+                CertifiFrom.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "CertifiedFrom"));
+
+                //Select year from drop down
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "certificationYear", 10000);
+                CertiYear.Click();
+                new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("certificationYear"))).SelectByText("2020");
+
+                //Click on add certification
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//input[@value='Add']", 10000);
+                AddCerBtn.Click();
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Test failed to enter/add Certificate", ex.Message);
+            }
+            #endregion
+
+            #region AddDescription
+            try
+            {
+                //Click on edit Description
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/div/div/div/h3/span/i", 10000);
+                DescriptionEdit.Click();
+
+                //Click on Description Text and enter the details
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/div/div/form/div/div/div[2]/div[1]/textarea", 10000);
+                DescriptionBox.Clear();
+                DescriptionBox.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Description"));
+
+                //Click on Save button
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/div/div/form/div/div/div[2]/button", 10000);
+                SaveDescription.Click();
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Test failed to Enter Description", ex.Message);
+            }
+            #endregion
+        }
+
+        internal void VerifyProfile()
+        {
+            throw new NotImplementedException();
         }
 
         internal void EditProfile()
         {
 
         }
+
+
+        internal void VerifyEditedProfile()
+        {
+            throw new NotImplementedException();
+        }
+
+
         internal void DeleteProfile()
         {
             
+        }
+
+        internal void VerifyDeleteaction()
+        {
+            throw new NotImplementedException();
         }
     }
 }

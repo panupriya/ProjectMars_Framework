@@ -122,7 +122,7 @@ namespace MarsFramework.Pages
             }
             catch (Exception ex)
             {
-                Assert.Fail("verify the share skill page failed", ex.Message);
+                Assert.Fail("verify the edited share skill page failed", ex.Message);
             }
         }
 
@@ -152,7 +152,7 @@ namespace MarsFramework.Pages
             }
             catch (Exception ex)
             {
-                Console.WriteLine("canot delete", ex);
+                Console.WriteLine("cannot able to delete skill", ex);
             }
 
 

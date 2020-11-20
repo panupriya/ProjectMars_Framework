@@ -42,7 +42,7 @@ namespace MarsFramework.Pages
         private IWebElement ServiceTypeOptions { get; set; }
         [FindsBy(How = How.XPath, Using = "//*[@id='service-listing-section']/div[2]/div/form/div[5]/div[2]/div[1]/div[2]/div/input")]
         private IWebElement Servicetyp { get; set; }
-
+       
         //Select the Location Type
         [FindsBy(How = How.XPath, Using = "//form/div[6]/div[@class='twelve wide column']/div/div[@class = 'field']")]
         private IWebElement LocationTypeOption { get; set; }
@@ -209,11 +209,15 @@ namespace MarsFramework.Pages
             GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//input[@value='Save']", 10000);
             Save.Click();
 
+
+
+        }
+        internal void VerifySkill()
+        {
+
             //Verify share skill details
             GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[2]/button[2]", 10000);
             ManageLis.Click();
-
-
             try
             {
                 GlobalDefinitions.WaitForElement(GlobalDefinitions.driver, "XPath", "//*[@id='listing-management-section']/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[2]", 10000);
@@ -227,7 +231,6 @@ namespace MarsFramework.Pages
             {
                 Assert.Fail("verify the share skill page failed", ex.Message);
             }
-
         }
 
     }

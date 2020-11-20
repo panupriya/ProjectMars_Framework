@@ -93,6 +93,38 @@ namespace MarsFramework.Global
                 Assert.Fail("Test faied waiting for an webelement to be visible", ex.Message);
             }
         }
+        public static void WaitForElementClickable(IWebDriver driver, string key, string value, int seconds)
+        {
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, seconds));
+            if (key == "Id")
+            {
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.Id(value)));
+            }
+            if (key == "XPath")
+            {
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.XPath(value)));
+            }
+            if (key == "CssSelector")
+            {
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.CssSelector(value)));
+            }
+            if (key == "ClassName")
+            {
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.ClassName(value)));
+            }
+            if (key == "Name")
+            {
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.Name(value)));
+            }
+
+        }
+
+        public static void WaitForTextPresentInElement(IWebDriver driver, IWebElement element, string text, int seconds)
+        {
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, seconds));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.TextToBePresentInElement(element, text));
+
+        }
 
         #endregion
 

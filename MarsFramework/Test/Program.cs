@@ -17,6 +17,7 @@ namespace MarsFramework
                 {
                     Profile profileobj = new Profile();
                     profileobj.EnterProfile();
+                    profileobj.VerifyProfile();
 
                 }
 
@@ -25,6 +26,7 @@ namespace MarsFramework
                 {
                     Profile profileobj = new Profile();
                     profileobj.EditProfile();
+                    profileobj.VerifyEditedProfile();
 
                 }
 
@@ -33,6 +35,7 @@ namespace MarsFramework
                 {
                     Profile profileobj = new Profile();
                     profileobj.DeleteProfile();
+                    profileobj.VerifyDeleteaction();
 
                 }
 
@@ -43,7 +46,7 @@ namespace MarsFramework
                 {
                     ShareSkill shareSkillObj = new ShareSkill();
                     shareSkillObj.EnterShareSkill();
-
+                    shareSkillObj.VerifySkill();
                 }
 
 
