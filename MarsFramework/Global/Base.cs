@@ -5,6 +5,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using RelevantCodes.ExtentReports;
 using System;
+using System.Threading;
 using static MarsFramework.Global.GlobalDefinitions;
 
 namespace MarsFramework.Global
@@ -43,11 +44,16 @@ namespace MarsFramework.Global
 
             }
 
+            //Populate the excel data
+            Thread.Sleep(5000);
+            GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "SignIn");
+            GlobalDefinitions.driver.Navigate().GoToUrl(GlobalDefinitions.ExcelLib.ReadData(2, "Url"));
+
             #region Initialise Reports
 
             extent = new ExtentReports(ReportPath, false, DisplayOrder.NewestFirst);
-            extent.LoadConfig(MarsResource.ReportXMLPath);
-
+            //extent.LoadConfig(MarsResource.ReportXMLPath);
+            test = extent.StartTest("My First Test", "Sample description");
             #endregion
 
             if (MarsResource.IsLogin == "true")

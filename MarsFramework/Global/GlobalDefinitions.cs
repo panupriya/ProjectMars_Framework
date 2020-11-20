@@ -1,4 +1,5 @@
 ﻿using Excel;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
@@ -8,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
+
 namespace MarsFramework.Global
 {
     class GlobalDefinitions
@@ -15,18 +17,83 @@ namespace MarsFramework.Global
         //Initialise the browser
         public static IWebDriver driver { get; set; }
 
-        #region WaitforElement 
+        #region Wait
+        //generic reusable wait function- ElementExist
+        public static void WaitForElement(IWebDriver driver, string key, string value, int seconds)
 
-        public static void wait(int time)
         {
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(time);
+            try
+            {
+                if (key == "XPath")
+                {
+                    var wait = new WebDriverWait(driver, new TimeSpan(0, 0, seconds));
+                    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath(value)));
+                }
+                if (key == "Id")
+                {
+                    var wait = new WebDriverWait(driver, new TimeSpan(0, 0, seconds));
+                    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id(value)));
+                }
+                if (key == "CssSelector")
+                {
+                    var wait = new WebDriverWait(driver, new TimeSpan(0, 0, seconds));
+                    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.CssSelector(value)));
+                }
+                if (key == "Name")
+                {
+                    var wait = new WebDriverWait(driver, new TimeSpan(0, 0, seconds));
+                    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name(value)));
+                }
+                if (key == "LinkText")
+                {
+                    var wait = new WebDriverWait(driver, new TimeSpan(0, 0, seconds));
+                    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.LinkText(value)));
+                }
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Test faied waiting for an webelement to be visible", ex.Message);
+            }
+        }
 
-        }
-        public static IWebElement WaitForElement(IWebDriver driver, By by, int timeOutinSeconds)
+
+        //generic reusable wait function- ElementIsVisible
+        public static void WaitForElementVisibility(IWebDriver driver, string key, string value, int seconds)
         {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOutinSeconds));
-            return (wait.Until(ExpectedConditions.ElementIsVisible(by)));
+            try
+            {
+                if (key == "XPath")
+                {
+                    var wait = new WebDriverWait(driver, new TimeSpan(0, 0, seconds));
+                    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath(value)));
+                }
+                if (key == "Id")
+                {
+                    var wait = new WebDriverWait(driver, new TimeSpan(0, 0, seconds));
+                    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id(value)));
+                }
+                if (key == "CssSelector")
+                {
+                    var wait = new WebDriverWait(driver, new TimeSpan(0, 0, seconds));
+                    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector(value)));
+                }
+                if (key == "Name")
+                {
+                    var wait = new WebDriverWait(driver, new TimeSpan(0, 0, seconds));
+                    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Name(value)));
+                }
+                if (key == "LinkText")
+                {
+                    var wait = new WebDriverWait(driver, new TimeSpan(0, 0, seconds));
+                    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.LinkText(value)));
+                }
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Test faied waiting for an webelement to be visible", ex.Message);
+            }
         }
+
         #endregion
 
 

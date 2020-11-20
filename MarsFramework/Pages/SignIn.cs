@@ -1,5 +1,8 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.PageObjects;
+﻿using MarsFramework.Global;
+using NUnit.Framework;
+using OpenQA.Selenium;
+using SeleniumExtras.PageObjects;
+using System;
 
 namespace MarsFramework.Pages
 {
@@ -31,7 +34,36 @@ namespace MarsFramework.Pages
 
         internal void LoginSteps()
         {
+            //Populate the excel data
+
+            GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "SignIn");
+
+            //Click on SignIn
+            SignIntab.Click();
+
+            //Enter Username
+            Email.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Username"));
+
+            //Enter Password
+            Password.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Password"));
+
+            //Click login
+            LoginBtn.Click();
+            try
+            {
+                GlobalDefinitions.WaitForElement(GlobalDefinitions.driver, "XPath", "//*[contains(text(),'Ishaan Sandeep')]", 10000);
+                // check login is successfull
+                var loginCheck = "test";
+                loginCheck = GlobalDefinitions.driver.FindElement(By.XPath("//*[contains(text(),'Ishaan Sandeep')]")).GetAttribute("innerText");
+
+                Assert.That(loginCheck == "Ishaan Sandeep");
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Test failed at login step", ex.Message);
+            }
 
         }
+
     }
 }

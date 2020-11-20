@@ -1,6 +1,6 @@
 ﻿using MarsFramework.Global;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.PageObjects;
+using SeleniumExtras.PageObjects;
 
 namespace MarsFramework.Pages
 {
@@ -12,20 +12,22 @@ namespace MarsFramework.Pages
         }
 
         #region  Initialize Web Elements 
-        //Finding the Join 
+
+        //Finding the Join
         [FindsBy(How = How.XPath, Using = "//*[@id='home']/div/div/div[1]/div/button")]
         private IWebElement Join { get; set; }
 
+
         //Identify FirstName Textbox
-        [FindsBy(How = How.XPath, Using = "/html/body/div[2]/div/div/div/form/div[1]/input")]
+        [FindsBy(How = How.XPath, Using = "/html/body/div[2]/div/div/form/div[1]/input")]
         private IWebElement FirstName { get; set; }
 
         //Identify LastName Textbox
-        [FindsBy(How = How.XPath, Using = "/html/body/div[2]/div/div/div/form/div[2]/input")]
+        [FindsBy(How = How.XPath, Using = "/html/body/div[2]/div/div/form/div[2]/input")]
         private IWebElement LastName { get; set; }
 
         //Identify Email Textbox
-        [FindsBy(How = How.XPath, Using = "/html/body/div[2]/div/div/div/form/div[3]/input")]
+        [FindsBy(How = How.XPath, Using = "/html/body/div[2]/div/div/form/div[3]/input")]
         private IWebElement Email { get; set; }
 
         //Identify Password Textbox
@@ -40,15 +42,20 @@ namespace MarsFramework.Pages
         [FindsBy(How = How.XPath, Using = "/html/body/div[2]/div/div/div/form/div[6]/div/div/input")]
         private IWebElement Checkbox { get; set; }
 
+
         //Identify join button
         [FindsBy(How = How.XPath, Using = "//*[@id='submit-btn']")]
         private IWebElement JoinBtn { get; set; }
         #endregion
 
+
+
         internal void register()
         {
             //Populate the excel data
+
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "SignUp");
+
             //Click on Join button
             Join.Click();
 
