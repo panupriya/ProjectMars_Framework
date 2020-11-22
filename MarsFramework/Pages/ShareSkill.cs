@@ -131,12 +131,12 @@ namespace MarsFramework.Pages
             //Select catagory from drop down
             GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "categoryId", 10000);
             CategoryDropDown.Click();
-            new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("categoryId"))).SelectByText("Programming & Tech");
+            new SelectElement(CategoryDropDown).SelectByText(GlobalDefinitions.ExcelLib.ReadData(2, "Category"));
 
             //Select catagory from drop down
             GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "subcategoryId", 10000);
             SubCategoryDropDown.Click();
-            new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("subcategoryId"))).SelectByText("QA");
+            new SelectElement(SubCategoryDropDown).SelectByText(GlobalDefinitions.ExcelLib.ReadData(2, "SubCategory"));
 
             //Enter Tag names in textbox
             GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//input[@value='']", 10000);

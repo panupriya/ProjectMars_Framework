@@ -100,7 +100,7 @@ namespace MarsFramework.Pages
             GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "title", 10000);
             Title.Click();
             Title.Clear();
-            Title.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Title"));
+            Title.SendKeys(GlobalDefinitions.ExcelLib.ReadData(3, "Title"));
 
             //Click on save button
             GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//input[@value='Save']", 10000);
@@ -110,7 +110,7 @@ namespace MarsFramework.Pages
             //Click on Manage Listing
             GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "LinkText", "Manage Listings", 10000);
             manageListingsLink.Click();
-
+            Thread.Sleep(5000);
             //Click on view button
             GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "(//i[@class='eye icon'])[1]", 10000);
             view.Click();
@@ -118,7 +118,7 @@ namespace MarsFramework.Pages
             try
             {
                 GlobalDefinitions.WaitForElement(GlobalDefinitions.driver, "XPath", "//*[@id='service-detail-section']/div[2]/div/div[2]/div[1]/div[1]/div[2]/h1/span", 20000);
-                Assert.That(ViewValidation.Text == "Selenium");
+                Assert.That(ViewValidation.Text == "Selenium with Java");
             }
             catch (Exception ex)
             {

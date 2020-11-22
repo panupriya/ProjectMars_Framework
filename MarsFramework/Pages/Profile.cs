@@ -212,7 +212,7 @@ namespace MarsFramework
 
                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "availabiltyHour", 10000);
                 //select availability hour
-                new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("availabiltyHour"))).SelectByText("More than 30hours a week");
+                new SelectElement(AvailabilityHour).SelectByText(GlobalDefinitions.ExcelLib.ReadData(2, "Hours"));
 
             }
             catch (Exception ex)
@@ -232,7 +232,7 @@ namespace MarsFramework
 
                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "availabiltyTarget", 10000);
                 //select salary
-                new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("availabiltyTarget"))).SelectByText("More than $1000 per month");
+                new SelectElement(SalarySelect).SelectByText(GlobalDefinitions.ExcelLib.ReadData(2, "EarnTarget"));
             }
             catch (Exception ex)
             {
@@ -259,7 +259,7 @@ namespace MarsFramework
 
                 //Select language level
                 ChooseLevel.Click();
-                new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("level"))).SelectByText("Conversational");
+                new SelectElement(ChooseLevel).SelectByText(GlobalDefinitions.ExcelLib.ReadData(2, "LanguageLevel"));
 
                 //Add Language
                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//input[@value='Add']", 10000);
@@ -290,7 +290,7 @@ namespace MarsFramework
 
                 //Add skill level
                 AddSkillLevel.Click();
-                new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("level"))).SelectByText("Beginner");
+                new SelectElement(AddSkillLevel).SelectByText(GlobalDefinitions.ExcelLib.ReadData(2, "SkillLevel"));
 
                 //Click on add skill
                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//input[@value='Add']", 10000);
@@ -316,20 +316,20 @@ namespace MarsFramework
                  //Choose country
                  GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "country", 10000);
                  SelectCountry.Click();
-                 new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("country"))).SelectByText("India");
+                 new SelectElement(SelectCountry).SelectByText(GlobalDefinitions.ExcelLib.ReadData(2, "Country"));
 
-                 //Choose title
-                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "title", 10000);
+                //Choose title
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "title", 10000);
                  SelectTitle.Click();
-                 new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("title"))).SelectByText("B.Tech");
+                 new SelectElement(SelectTitle).SelectByText(GlobalDefinitions.ExcelLib.ReadData(2, "Title"));
 
-                 //Choose year
-                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "yearOfGraduation", 10000);
+                //Choose year
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "yearOfGraduation", 10000);
                  YearOfGraduation.Click();
-                 new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("yearOfGraduation"))).SelectByText("2011");
+                 new SelectElement(YearOfGraduation).SelectByText(GlobalDefinitions.ExcelLib.ReadData(2, "YearOfGraduation"));
 
-                 //Choose institute name
-                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "instituteName", 10000);
+                //Choose institute name
+                GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "instituteName", 10000);
                  InstitName.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "University"));
 
                  //Choose degree
@@ -371,7 +371,7 @@ namespace MarsFramework
                 //Select year from drop down
                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "certificationYear", 10000);
                 CertiYear.Click();
-                new SelectElement(GlobalDefinitions.driver.FindElement(By.Name("certificationYear"))).SelectByText("2020");
+                new SelectElement(CertiYear).SelectByText(GlobalDefinitions.ExcelLib.ReadData(2, "YearOfCertification")); ;
 
                 //Click on add certification
                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//input[@value='Add']", 10000);
@@ -390,9 +390,9 @@ namespace MarsFramework
                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/div/div/div/h3/span/i", 10000);
                 DescriptionEdit.Click();
 
-                //Click on Description Text and enter the details
+                //Click on Description Text and clear the details
                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/div/div/form/div/div/div[2]/div[1]/textarea", 10000);
-                DescriptionBox.Clear();
+                DescriptionBox.Clear();                  
                 DescriptionBox.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Description"));
 
                 //Click on Save button
