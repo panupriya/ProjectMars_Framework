@@ -35,7 +35,7 @@ namespace MarsFramework
                 {
                     Profile profileobj = new Profile();
                     profileobj.DeleteProfile();
-                    profileobj.VerifyDeleteaction();
+                   
 
                 }
 
