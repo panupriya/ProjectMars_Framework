@@ -13,6 +13,8 @@ namespace MarsFramework.Pages
         {
             PageFactory.InitElements(Global.GlobalDefinitions.driver, this);
         }
+
+        #region Initialize web elements
         //Click on ShareSkill Button
         [FindsBy(How = How.LinkText, Using = "Share Skill")]
         private IWebElement ShareSkillButton { get; set; }
@@ -105,13 +107,16 @@ namespace MarsFramework.Pages
         [FindsBy(How = How.XPath, Using = "//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[2]/button[2]")]
         private IWebElement ManageLis { get; set; }
 
+        #endregion
 
+        #region Enter share skill
+        //Add share skill details
         internal void EnterShareSkill()
         {
             //Populate the excel data
 
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "ShareSkill");
-
+            
             try
             {
 
@@ -217,12 +222,21 @@ namespace MarsFramework.Pages
             {
                 Assert.Fail("Test failed to enter Skill details", ex.Message);
             }
-
-
         }
+
+        #endregion
+
+
+        #region Validate share skill
+        //Verify Share skill
+
         internal void VerifySkill()
         {
 
+            //Populate the excel data
+
+            GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "ShareSkill");
+            
             //Verify share skill details
             GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[2]/button[2]", 10000);
             ManageLis.Click();
@@ -239,9 +253,9 @@ namespace MarsFramework.Pages
             catch (Exception ex)
             {
                 Assert.Fail("verify the share skill page failed", ex.Message);
-                // Assert.That(categorycheck == "Programming & Tech" && titlecheck == "Selenium");
+                
             }
         }
-
+        #endregion
     }
 }

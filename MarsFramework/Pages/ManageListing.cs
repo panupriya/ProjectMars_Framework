@@ -13,7 +13,7 @@ namespace MarsFramework.Pages
         {
             PageFactory.InitElements(Global.GlobalDefinitions.driver, this);
         }
-
+        #region Initialize web elements
         //Click on Manage Listings Link
         [FindsBy(How = How.LinkText, Using = "Manage Listings")]
         private IWebElement manageListingsLink { get; set; }
@@ -50,8 +50,10 @@ namespace MarsFramework.Pages
 
         [FindsBy(How = How.XPath, Using = "/html/body/div[2]/div/div[3]/button[2]/i")]
         private IWebElement yesBtn { get; set; }
+        #endregion
 
 
+        #region View listing
         internal void Listings()
         {
 
@@ -81,7 +83,10 @@ namespace MarsFramework.Pages
 
            
         }
+        #endregion
 
+
+        #region Edit manage listing
         internal void EditListings()
         {
 
@@ -126,7 +131,9 @@ namespace MarsFramework.Pages
                 Assert.Fail("verify the edited share skill page failed", ex.Message);
             }
         }
+        #endregion
 
+        #region Delete listing
         internal void DeleteListings()
         {
             //Populate the Excel Sheet
@@ -156,7 +163,7 @@ namespace MarsFramework.Pages
                 Console.WriteLine("cannot able to delete skill", ex);
             }
 
-
         }
+        #endregion
     }
 }

@@ -462,6 +462,7 @@ namespace MarsFramework
 
                 //Click on Description Text and clear the details
                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/div/div/form/div/div/div[2]/div[1]/textarea", 10000);
+                Thread.Sleep(1000);
                 DescriptionBox.Clear();
                 DescriptionBox.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Description"));
 
@@ -492,6 +493,7 @@ namespace MarsFramework
             try
             {
                 //Verify Language Name
+                LangBtn.Click();
                 var lastRowLanguageName = GlobalDefinitions.driver.FindElement(By.XPath("//div[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody[last()]/tr/td[1]")).Text;
                 Assert.That(lastRowLanguageName, Is.EqualTo(GlobalDefinitions.ExcelLib.ReadData(2, "Language")));
 
@@ -587,7 +589,7 @@ namespace MarsFramework
             {
                 Assert.Fail("Test failed to verify Entering Certification", ex.Message);
             }
-           
+
             //Verify Description
             try
             {
