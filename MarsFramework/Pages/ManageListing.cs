@@ -71,15 +71,15 @@ namespace MarsFramework.Pages
             try
             {
                 GlobalDefinitions.WaitForElement(GlobalDefinitions.driver, "XPath", "//*[@id='service-detail-section']/div[2]/div/div[2]/div[1]/div[1]/div[2]/h1/span", 40000);
-
-                Assert.That(ViewValidation.Text == "Selenium");
+                var ViewValidation = GlobalDefinitions.driver.FindElement(By.XPath("//*[@id='service-detail-section']/div[2]/div/div[2]/div[1]/div[1]/div[2]/h1/span")).Text;
+                Assert.That(ViewValidation, Is.EqualTo(GlobalDefinitions.ExcelLib.ReadData(2, "Title")));
             }
             catch (Exception ex)
             {
                 Assert.Fail("verify the share skill page failed", ex.Message);
             }
 
-
+           
         }
 
         internal void EditListings()
@@ -118,7 +118,8 @@ namespace MarsFramework.Pages
             try
             {
                 GlobalDefinitions.WaitForElement(GlobalDefinitions.driver, "XPath", "//*[@id='service-detail-section']/div[2]/div/div[2]/div[1]/div[1]/div[2]/h1/span", 20000);
-                Assert.That(ViewValidation.Text == "Selenium with Java");
+                var ViewValidation = GlobalDefinitions.driver.FindElement(By.XPath("//*[@id='service-detail-section']/div[2]/div/div[2]/div[1]/div[1]/div[2]/h1/span")).Text;
+                Assert.That(ViewValidation, Is.EqualTo(GlobalDefinitions.ExcelLib.ReadData(3, "Title")));
             }
             catch (Exception ex)
             {
