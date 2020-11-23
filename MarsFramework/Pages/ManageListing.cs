@@ -71,7 +71,8 @@ namespace MarsFramework.Pages
             //Click on view button
             GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "(//i[@class='eye icon'])[1]", 10000);
             view.Click();
-
+            // Refresh the page
+            GlobalDefinitions.driver.Navigate().Refresh();
             try
             {
                 GlobalDefinitions.WaitForElement(GlobalDefinitions.driver, "XPath", "//*[@id='service-detail-section']/div[2]/div/div[2]/div[1]/div[1]/div[2]/h1/span", 40000);
@@ -117,14 +118,7 @@ namespace MarsFramework.Pages
             GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//input[@value='Save']", 10000);
             Save.Click();
 
-            //Validate edited data
-            //Click on Manage Listing
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "LinkText", "Manage Listings", 10000);
-            manageListingsLink.Click();
-            Thread.Sleep(5000);
-            //Click on view button
-            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "(//i[@class='eye icon'])[1]", 10000);
-            view.Click();
+            
 
         }
 
@@ -136,6 +130,15 @@ namespace MarsFramework.Pages
             // Refresh the page
             GlobalDefinitions.driver.Navigate().Refresh();
 
+            //Validate edited data
+            //Click on Manage Listing
+            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "LinkText", "Manage Listings", 10000);
+            manageListingsLink.Click();
+            Thread.Sleep(5000);
+            //Click on view button
+            GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "(//i[@class='eye icon'])[1]", 10000);
+            view.Click();
+            GlobalDefinitions.driver.Navigate().Refresh();
             try
             {
                 GlobalDefinitions.WaitForElement(GlobalDefinitions.driver, "XPath", "//*[@id='service-detail-section']/div[2]/div/div[2]/div[1]/div[1]/div[2]/h1/span", 20000);
