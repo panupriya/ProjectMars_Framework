@@ -9,10 +9,10 @@ namespace MarsFramework
         [Category("Sprint1")]
         class User : Global.Base
         {
-            
-            
 
-                [Test, Description("Check if the user is able to add profile details successfully")]
+            #region Profile page
+
+            [Test, Description("Check if the user is able to add profile details successfully")]
                 public void AddProfile()
                 {
                     Profile profileobj = new Profile();
@@ -39,9 +39,11 @@ namespace MarsFramework
 
                 }
 
+            #endregion
 
 
-                [Test, Description("Check if the user is able to add ShareSkill details successfully")]
+            #region Skill Share page
+            [Test, Description("Check if the user is able to add ShareSkill details successfully")]
                 public void EnterShareSkill()
                 {
                     ShareSkill shareSkillObj = new ShareSkill();
@@ -49,8 +51,10 @@ namespace MarsFramework
                     shareSkillObj.VerifySkill();
                 }
 
+            #endregion
 
-                [Test, Description("Check if the user is able to View ManageListing successfully")]
+            #region Manage Listing page
+            [Test, Description("Check if the user is able to View ManageListing successfully")]
                 public void ManageListing()
                 {
 
@@ -65,7 +69,7 @@ namespace MarsFramework
 
                     ManageListing manageobj = new ManageListing();
                     manageobj.EditListings();
-
+                    manageobj.ValidateEditedDetails();
                 }
 
                 [Test, Description("Check if the user is able to Delete ManageListing successfully")]
@@ -74,8 +78,9 @@ namespace MarsFramework
 
                     ManageListing manageobj = new ManageListing();
                     manageobj.DeleteListings();
+                    manageobj.ValidateDeletedDetails(); 
                 }
-
+            #endregion
         }
     }
 }

@@ -59,6 +59,8 @@ namespace MarsFramework.Pages
 
             //Populate the Excel Sheet
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "ManageListing");
+            // Refresh the page
+            GlobalDefinitions.driver.Navigate().Refresh();
 
             //Click on Manage Listing
             GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "LinkText", "Manage Listings", 10000);
@@ -83,6 +85,8 @@ namespace MarsFramework.Pages
 
            
         }
+
+       
         #endregion
 
 
@@ -92,6 +96,8 @@ namespace MarsFramework.Pages
 
             //Populate the Excel Sheet
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "ManageListing");
+            // Refresh the page
+            GlobalDefinitions.driver.Navigate().Refresh();
 
             //Click on Manage Listing
             GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "LinkText", "Manage Listings", 10000);
@@ -120,6 +126,16 @@ namespace MarsFramework.Pages
             GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "(//i[@class='eye icon'])[1]", 10000);
             view.Click();
 
+        }
+
+        //Validate edited details
+        internal void ValidateEditedDetails()
+        {
+            //Populate the Excel Sheet
+            GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "ManageListing");
+            // Refresh the page
+            GlobalDefinitions.driver.Navigate().Refresh();
+
             try
             {
                 GlobalDefinitions.WaitForElement(GlobalDefinitions.driver, "XPath", "//*[@id='service-detail-section']/div[2]/div/div[2]/div[1]/div[1]/div[2]/h1/span", 20000);
@@ -138,6 +154,8 @@ namespace MarsFramework.Pages
         {
             //Populate the Excel Sheet
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "ManageListing");
+            // Refresh the page
+            GlobalDefinitions.driver.Navigate().Refresh();
 
             //Click on Manage Listing
             GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "LinkText", "Manage Listings", 10000);
@@ -162,8 +180,36 @@ namespace MarsFramework.Pages
             {
                 Console.WriteLine("cannot able to delete skill", ex);
             }
+        }
+        internal void ValidateDeletedDetails()
+        {
+            //Populate the Excel Sheet
+            GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "ManageListing");
+            // Refresh the page
+            GlobalDefinitions.driver.Navigate().Refresh();
+            try
+            {
+                //Verify deleted details
+
+                var deletedListing = GlobalDefinitions.driver.FindElement(By.XPath("//*[@id='listing-management-section']/div[2]/div[1]/div[1]/table/tbody/tr/td[3]")).Text;
+                if(deletedListing!= GlobalDefinitions.ExcelLib.ReadData(3, "Title"))
+                {
+                    Assert.Pass("Manage Listing deleted successfuly");
+                }
+                else
+                {
+                    Assert.Fail("Manage Listing not deleted");
+                }
+            }
+            catch 
+            {
+                Console.WriteLine("Test passed, Listing deleted");
+            }
+
 
         }
+
+
         #endregion
     }
 }
