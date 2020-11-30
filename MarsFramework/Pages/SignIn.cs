@@ -1,6 +1,7 @@
 ﻿using MarsFramework.Global;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using RelevantCodes.ExtentReports;
 using SeleniumExtras.PageObjects;
 using System;
 
@@ -57,11 +58,16 @@ namespace MarsFramework.Pages
                 loginCheck = GlobalDefinitions.driver.FindElement(By.XPath("//*[contains(text(),'Ishaan Sandeep')]")).GetAttribute("innerText");
 
                 Assert.That(loginCheck == "Ishaan Sandeep");
+                Base.test.Log(LogStatus.Pass, "Login Passed");
+
             }
             catch (Exception ex)
             {
                 Assert.Fail("Test failed at login step", ex.Message);
+                Base.test.Log(LogStatus.Fail, "Login failed");
+
             }
+
 
         }
 

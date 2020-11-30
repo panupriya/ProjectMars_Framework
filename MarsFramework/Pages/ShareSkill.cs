@@ -249,11 +249,13 @@ namespace MarsFramework.Pages
                GlobalDefinitions.WaitForElement(GlobalDefinitions.driver, "XPath", "//*[@id='listing-management-section']/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[3]", 10000);
                 var titlecheck = GlobalDefinitions.driver.FindElement(By.XPath("//*[@id='listing-management-section']/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[3]")).GetAttribute("textContent");
                 Assert.That(titlecheck, Is.EqualTo(GlobalDefinitions.ExcelLib.ReadData(2, "Title")));
+                Base.test.Log(RelevantCodes.ExtentReports.LogStatus.Pass, "Share skill added successfully");
             }
             catch (Exception ex)
             {
                 Assert.Fail("verify the share skill page failed", ex.Message);
-                
+                Base.test.Log(RelevantCodes.ExtentReports.LogStatus.Fail, "Share skill not added");
+
             }
         }
         #endregion

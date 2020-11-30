@@ -53,16 +53,22 @@ namespace MarsFramework.Global
 
             extent = new ExtentReports(ReportPath, false, DisplayOrder.NewestFirst);
             extent.LoadConfig(MarsResource.ReportXMLPath);
-            test = extent.StartTest("My First Test", "Sample description");
-            #endregion
 
+            #endregion
+           
             if (MarsResource.IsLogin == "true")
             {
+                //Create Extent Report
+                test = extent.StartTest("SignIn", "Sample description");
+                //SignIn
                 SignIn loginobj = new SignIn();
                 loginobj.LoginSteps();
             }
             else
             {
+                //Create Extent Report
+                test = extent.StartTest("Join", "Sample description");
+                //Join
                 SignUp obj = new SignUp();
                 obj.register();
             }
@@ -76,6 +82,7 @@ namespace MarsFramework.Global
             // Screenshot
             String img = SaveScreenShotClass.SaveScreenshot(GlobalDefinitions.driver, "Report");//AddScreenCapture(@"E:\Dropbox\VisualStudio\Projects\Beehive\TestReports\ScreenShots\");
             test.Log(LogStatus.Info, "Image example: " + img);
+            
             // end test. (Reports)
             extent.EndTest(test);
             // calling Flush writes everything to the log file (Reports)

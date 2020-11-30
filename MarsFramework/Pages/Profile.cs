@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using RelevantCodes.ExtentReports;
 using SeleniumExtras.PageObjects;
 using System;
 using System.Threading;
@@ -265,10 +266,12 @@ namespace MarsFramework
                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "availabiltyType", 10000);
                 //select availability time
                 new SelectElement(AvailabilityTime).SelectByText(GlobalDefinitions.ExcelLib.ReadData(2, "AvailableTime"));
+                Base.test.Log(LogStatus.Info, "Select the available time");
             }
             catch (Exception ex)
             {
                 Assert.Fail("Test failed to enter Availability Type", ex.Message);
+
             }
 
             try
@@ -283,7 +286,7 @@ namespace MarsFramework
                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "availabiltyHour", 10000);
                 //select availability hour
                 new SelectElement(AvailabilityHour).SelectByText(GlobalDefinitions.ExcelLib.ReadData(2, "Hours"));
-
+                Base.test.Log(LogStatus.Info, "Added hour successfully");
             }
             catch (Exception ex)
             {
@@ -303,6 +306,7 @@ namespace MarsFramework
                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "Name", "availabiltyTarget", 10000);
                 //select salary
                 new SelectElement(SalarySelect).SelectByText(GlobalDefinitions.ExcelLib.ReadData(2, "EarnTarget"));
+                Base.test.Log(LogStatus.Info, "Added Target successfully");
             }
             catch (Exception ex)
             {
@@ -334,6 +338,7 @@ namespace MarsFramework
                 //Add Language
                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//input[@value='Add']", 10000);
                 AddLang.Click();
+                Base.test.Log(LogStatus.Info, "Added Language successfully");
             }
             catch (Exception ex)
             {
@@ -365,6 +370,7 @@ namespace MarsFramework
                 //Click on add skill
                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//input[@value='Add']", 10000);
                 AddSkillBtn.Click();
+                Base.test.Log(LogStatus.Info, "Added skill successfully");
             }
             catch (Exception ex)
             {
@@ -409,6 +415,7 @@ namespace MarsFramework
                 //Click on add education
                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//input[@value='Add']", 10000);
                 AddEdu.Click();
+                Base.test.Log(LogStatus.Info, "Added Education successfully");
             }
             catch (Exception ex)
             {
@@ -446,6 +453,7 @@ namespace MarsFramework
                 //Click on add certification
                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//input[@value='Add']", 10000);
                 AddCerBtn.Click();
+                Base.test.Log(LogStatus.Info, "Added Certification successfully");
             }
             catch (Exception ex)
             {
@@ -469,6 +477,7 @@ namespace MarsFramework
                 //Click on Save button
                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/div/div/form/div/div/div[2]/button", 10000);
                 SaveDescription.Click();
+                Base.test.Log(LogStatus.Info, "Added Description successfully");
             }
             catch (Exception ex)
             {

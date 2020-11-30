@@ -1,6 +1,7 @@
 ﻿using MarsFramework.Global;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using RelevantCodes.ExtentReports;
 using SeleniumExtras.PageObjects;
 using System;
 using System.Threading;
@@ -78,10 +79,12 @@ namespace MarsFramework.Pages
                 GlobalDefinitions.WaitForElement(GlobalDefinitions.driver, "XPath", "//*[@id='service-detail-section']/div[2]/div/div[2]/div[1]/div[1]/div[2]/h1/span", 40000);
                 var ViewValidation = GlobalDefinitions.driver.FindElement(By.XPath("//*[@id='service-detail-section']/div[2]/div/div[2]/div[1]/div[1]/div[2]/h1/span")).Text;
                 Assert.That(ViewValidation, Is.EqualTo(GlobalDefinitions.ExcelLib.ReadData(2, "Title")));
+                Base.test.Log(LogStatus.Pass, "Able to view liosting");
             }
             catch (Exception ex)
             {
                 Assert.Fail("verify the share skill page failed", ex.Message);
+                Base.test.Log(LogStatus.Fail, "Unable to view listing");
             }
 
            
@@ -144,10 +147,12 @@ namespace MarsFramework.Pages
                 GlobalDefinitions.WaitForElement(GlobalDefinitions.driver, "XPath", "//*[@id='service-detail-section']/div[2]/div/div[2]/div[1]/div[1]/div[2]/h1/span", 20000);
                 var ViewValidation = GlobalDefinitions.driver.FindElement(By.XPath("//*[@id='service-detail-section']/div[2]/div/div[2]/div[1]/div[1]/div[2]/h1/span")).Text;
                 Assert.That(ViewValidation, Is.EqualTo(GlobalDefinitions.ExcelLib.ReadData(3, "Title")));
+                Base.test.Log(LogStatus.Pass, "Listing Edited successfully");
             }
             catch (Exception ex)
             {
                 Assert.Fail("verify the edited share skill page failed", ex.Message);
+                Base.test.Log(LogStatus.Fail, "Unable to edit listing");
             }
         }
         #endregion
@@ -176,12 +181,13 @@ namespace MarsFramework.Pages
             {
                 GlobalDefinitions.WaitForElementVisibility(GlobalDefinitions.driver, "XPath", "/html/body/div[2]/div/div[3]/button[2]/i", 10000);
                 yesBtn.Click();
-
+                Base.test.Log(LogStatus.Pass, "Listing deleted");
 
             }
             catch (Exception ex)
             {
                 Console.WriteLine("cannot able to delete skill", ex);
+                Base.test.Log(LogStatus.Fail, "Unable to delete Listing");
             }
         }
         internal void ValidateDeletedDetails()
@@ -195,20 +201,21 @@ namespace MarsFramework.Pages
                 //Verify deleted details
 
                 var deletedListing = GlobalDefinitions.driver.FindElement(By.XPath("//*[@id='listing-management-section']/div[2]/div[1]/div[1]/table/tbody/tr/td[3]")).Text;
-                if(deletedListing!= GlobalDefinitions.ExcelLib.ReadData(3, "Title"))
+                if (deletedListing != GlobalDefinitions.ExcelLib.ReadData(3, "Title"))
                 {
                     Assert.Pass("Manage Listing deleted successfuly");
+                    Base.test.Log(LogStatus.Pass, "deleted successfuly");
                 }
                 else
                 {
                     Assert.Fail("Manage Listing not deleted");
+                    Base.test.Log(LogStatus.Fail, " not deleted successfuly");
                 }
             }
-            catch 
+            catch
             {
                 Console.WriteLine("Test passed, Listing deleted");
             }
-
 
         }
 
