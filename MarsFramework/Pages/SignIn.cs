@@ -4,6 +4,7 @@ using OpenQA.Selenium;
 using RelevantCodes.ExtentReports;
 using SeleniumExtras.PageObjects;
 using System;
+using System.Threading;
 
 namespace MarsFramework.Pages
 {
@@ -49,7 +50,9 @@ namespace MarsFramework.Pages
             Password.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Password"));
 
             //Click login
+           
             LoginBtn.Click();
+            Thread.Sleep(2000);
             try
             {
                 GlobalDefinitions.WaitForElement(GlobalDefinitions.driver, "XPath", "//*[contains(text(),'Ishaan Sandeep')]", 10000);

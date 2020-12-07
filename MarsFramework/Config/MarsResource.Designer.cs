@@ -106,6 +106,15 @@ namespace MarsFramework.Config {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D:\\ic test\\MarsCompetition\\MarsProject\\ProjectMarsFramework\\ProjectMarsFramework\\MarsFramework\\UploadFile\\Sample.txt.
+        /// </summary>
+        internal static string SampleWorkPath {
+            get {
+                return ResourceManager.GetString("SampleWorkPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D:\\ic test\\MarsCompetition\\MarsProject\\ProjectMarsFramework\\ProjectMarsFramework\\MarsFramework\\TestReports\\Screenshots\\AnuScreenShots\\.
         /// </summary>
         internal static string ScreenShotPath {
